@@ -15,7 +15,6 @@ export default function HomeScreen() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect hook triggered ");
     getCategories();
   }, []);
 
@@ -24,7 +23,7 @@ export default function HomeScreen() {
       const response = await axios.get(
         "https://www.themealdb.com/api/json/v1/1/categories.php"
       );
-      console.log(`got categories: `, response.data);
+
       if (response && response.data) {
         setCategories(response.data.categories);
       }
@@ -86,14 +85,15 @@ export default function HomeScreen() {
         </View>
         {/* categories */}
         <View>
-          <Categories
-            categories={categories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
+          {categories.length > 0 && (
+            <Categories
+              categories={categories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+          )}
         </View>
       </ScrollView>
-      <Text>HomeScreen</Text>
     </View>
   );
 }
