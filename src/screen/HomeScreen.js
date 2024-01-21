@@ -8,12 +8,14 @@ import {
 } from "react-native-responsive-screen";
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import Categories from "../components/categories";
+import axios from "axios";
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Beef");
-  const [categories, SetCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect hook triggered ");
     getCategories();
   }, []);
 
@@ -24,8 +26,9 @@ export default function HomeScreen() {
       );
       console.log(`got categories: `, response.data);
       if (response && response.data) {
+        setCategories(response.data.categories);
       }
-    } catch {
+    } catch (err) {
       console.log(`error: `, err.message);
     }
   };
@@ -84,6 +87,7 @@ export default function HomeScreen() {
         {/* categories */}
         <View>
           <Categories
+            categories={categories}
             activeCategory={activeCategory}
             setActiveCategory={setActiveCategory}
           />
