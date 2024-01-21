@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TextInput } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { StatusBar } from "expo-status-bar";
 import {
@@ -10,6 +10,26 @@ import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import Categories from "../components/categories";
 
 export default function HomeScreen() {
+  const [activeCategory, setActiveCategory] = useState("Beef");
+  const [categories, SetCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(
+        "https://www.themealdb.com/api/json/v1/1/categories.php"
+      );
+      console.log(`got categories: `, response.data);
+      if (response && response.data) {
+      }
+    } catch {
+      console.log(`error: `, err.message);
+    }
+  };
+
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="dark" />
@@ -63,7 +83,10 @@ export default function HomeScreen() {
         </View>
         {/* categories */}
         <View>
-          <Categories />
+          <Categories
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
         </View>
       </ScrollView>
       <Text>HomeScreen</Text>

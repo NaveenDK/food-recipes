@@ -6,7 +6,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-export default function Categories() {
+export default function Categories({ activeCategory, setActiveCategory }) {
   return (
     <View>
       <ScrollView
@@ -16,12 +16,16 @@ export default function Categories() {
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
         {categoryData.map((cat, index) => {
+          let isActive = cat.name == activeCategory;
+          let activeButtonClass = isActive ? "bg-amber-400" : "bg-black/10";
+
           return (
             <TouchableOpacity
               key={index}
+              onPress={() => setActiveCategory(cat.name)}
               className="flex items-center space-y-1"
             >
-              <View className="rounded-full p-[6px]">
+              <View className={"rounded-full p-[6px] " + activeButtonClass}>
                 <Image
                   source={{ uri: cat.image }}
                   style={{ width: hp(6), height: hp(6) }}
