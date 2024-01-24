@@ -1,6 +1,5 @@
 import { View, Text, Image, ScrollView, TextInput } from "react-native";
 import React, { useState, useEffect } from "react";
-
 import { StatusBar } from "expo-status-bar";
 import {
   widthPercentageToDP as wp,
@@ -9,6 +8,7 @@ import {
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import Categories from "../components/categories";
 import axios from "axios";
+import Recipes from "../components/recipes";
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Beef");
@@ -92,6 +92,9 @@ export default function HomeScreen() {
               setActiveCategory={setActiveCategory}
             />
           )}
+        </View>
+        <View>
+          <Recipes />
         </View>
       </ScrollView>
     </View>
