@@ -20,6 +20,12 @@ export default function HomeScreen() {
     getRecipes();
   }, []);
 
+  const handleChangeCategory = (category) => {
+    getRecipes(category);
+    setActiveCategory(category);
+    setMeals([]);
+  };
+
   const getCategories = async () => {
     try {
       const response = await axios.get(
@@ -105,7 +111,7 @@ export default function HomeScreen() {
             <Categories
               categories={categories}
               activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
+              handleChangeCategory={handleChangeCategory}
             />
           )}
         </View>
