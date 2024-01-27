@@ -11,7 +11,7 @@ export default function Categories({
   setActiveCategory,
 }) {
   return (
-    <Animated.View entering={FadeInDown.duration(500).springify()}>
+    <Animated.View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
