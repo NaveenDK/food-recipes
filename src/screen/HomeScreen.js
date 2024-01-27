@@ -13,9 +13,11 @@ import Recipes from "../components/recipes";
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Beef");
   const [categories, setCategories] = useState([]);
+  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     getCategories();
+    getRecipes();
   }, []);
 
   const getCategories = async () => {
@@ -26,6 +28,20 @@ export default function HomeScreen() {
 
       if (response && response.data) {
         setCategories(response.data.categories);
+      }
+    } catch (err) {
+      console.log(`error: `, err.message);
+    }
+  };
+
+  const getRecipes = async (category = "Beef") => {
+    try {
+      const response = await axios.get(
+        `https://themealdb.com/api/json/v1/1/filter.php?c=${category}`
+      );
+
+      if (response && response.data) {
+        setMeals(response.data.meals);
       }
     } catch (err) {
       console.log(`error: `, err.message);
@@ -94,7 +110,7 @@ export default function HomeScreen() {
           )}
         </View>
         <View>
-          <Recipes categories={categories} />
+          <Recipes meals={meals} categories={categories} />
         </View>
       </ScrollView>
     </View>
