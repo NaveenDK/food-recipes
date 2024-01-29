@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,12 +13,33 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import axios from "axios";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 
 const RecipeDetails = (props) => {
   let item = props.route.params;
   const [isFavourite, setIsFavourite] = useState(false);
+  const [meal, setMeal] = useState(null);
+  useEffect(() => {
+    getMealData(item.idMeal);
+  }, []);
+
+  const getMealData = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+      );
+
+      if (response && response.data) {
+        // setMeal(response.data.strMeal);
+        //console.log(response.data.meals[0]);
+        setMeal(response.data.meals[0]);
+      }
+    } catch (err) {
+      console.log(`error: `, err.message);
+    }
+  };
 
   return (
     <ScrollView
@@ -63,6 +84,9 @@ const RecipeDetails = (props) => {
             color={isFavourite ? "red" : "gray"}
           />
         </TouchableOpacity>
+      </View>
+      <View>
+        <Text></Text>
       </View>
     </ScrollView>
   );
