@@ -51,6 +51,18 @@ const RecipeDetails = (props) => {
     }
   };
 
+  const ingredientsIndexes = (meal) => {
+    if (!meal) return [];
+    let indexes = [];
+    for (let i = 0; i <= 20; i++) {
+      if (meal["strIngredient" + i]) {
+        indexes.push(i);
+      }
+    }
+
+    return indexes;
+  };
+
   return (
     <ScrollView
       className="bg-white flex-1"
@@ -218,6 +230,11 @@ const RecipeDetails = (props) => {
             >
               Ingredients
             </Text>
+            <View className="space-y-2 ml-3">
+              {ingredientsIndexes(meal).map((i) => {
+                return <View key={i} className="flex-row space-x-4"></View>;
+              })}
+            </View>
           </View>
         </View>
       )}
