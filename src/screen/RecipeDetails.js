@@ -232,7 +232,18 @@ const RecipeDetails = (props) => {
             </Text>
             <View className="space-y-2 ml-3">
               {ingredientsIndexes(meal).map((i) => {
-                return <View key={i} className="flex-row space-x-4"></View>;
+                return (
+                  <View key={i} className="flex-row space-x-4">
+                    <View
+                      style={{ height: hp(1.5), width: hp(1.5) }}
+                      className="bg-amber-300 rounded-full"
+                    />
+                    <View className="flex-row space-x-2">
+                      <Text>{meal["strMeasure" + i]}</Text>
+                      <Text>{meal["strIngredient" + i]}</Text>
+                    </View>
+                  </View>
+                );
               })}
             </View>
           </View>
