@@ -22,6 +22,7 @@ import {
 import { HeartIcon, UsersIcon, FireIcon } from "react-native-heroicons/solid";
 import Loading from "../components/loading";
 import { useNavigation } from "@react-navigation/native";
+import YouTubeIframe from "react-native-youtube-iframe";
 
 const RecipeDetails = (props) => {
   let item = props.route.params;
@@ -61,6 +62,15 @@ const RecipeDetails = (props) => {
     }
 
     return indexes;
+  };
+
+  const getYoutubeVideoId = (url) => {
+    const regex = /[?&]v=([^&]+)/;
+    const match = url.match(regex);
+    if (match && match[1]) {
+      return match[1];
+    }
+    return null;
   };
 
   return (
@@ -245,6 +255,40 @@ const RecipeDetails = (props) => {
                   </View>
                 );
               })}
+            </View>
+
+            <View className="space-y-4">
+              {/*Instructions*/}
+              <Text
+                style={{ fontSize: hp(1.5) }}
+                className="font-bold flex-1 text neutral-700"
+              >
+                Instructions
+              </Text>
+              <Text
+                style={{ fontSize: hp(1.5) }}
+                className=" flex-1 text neutral-700"
+              >
+                {meal?.strInstructions}
+              </Text>
+            </View>
+
+            <View className="space-y-4">
+              {/*recipe video*/}
+              {meal.strYoutube && (
+                <View className="space-y-4">
+                  <Text className="font-bold " style={{ fontSize: hp(1.5) }}>
+                    {" "}
+                    Recipe Video
+                  </Text>
+                  <View>
+                    <YouTubeIframe
+                      videoId={getYoutubeVideoId(meal.strYoutube)}
+                      height={hp(30)}
+                    ></YouTubeIframe>
+                  </View>
+                </View>
+              )}
             </View>
           </View>
         </View>

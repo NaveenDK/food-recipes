@@ -29,6 +29,8 @@
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "~3.22.0",
     "react-native-svg": "^14.1.0",
+    "react-native-webview": "^13.7.1",
+    "react-native-youtube-iframe": "^2.3.0",
     "react-navigation": "^5.0.0",
     "react-navigation-stack": "^2.10.4"
   },
